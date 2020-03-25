@@ -5,7 +5,7 @@ import BurnerCore from '@burner-wallet/core';
 import { InjectedSigner, LocalSigner } from '@burner-wallet/core/signers';
 import { InfuraGateway, InjectedGateway, XDaiGateway, } from '@burner-wallet/core/gateways';
 import Exchange, { Uniswap, XDaiBridge } from '@burner-wallet/exchange';
-import ModernUI from '@burner-wallet/modern-ui';
+import MinimalUI from 'minimal-ui';
 import MyPlugin from 'my-plugin';
 
 const core = new BurnerCore({
