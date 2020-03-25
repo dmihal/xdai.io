@@ -15,17 +15,17 @@ import HomePage from './pages/HomePage';
 import PKPage from './pages/PKPage';
 import ReceiptPage from './pages/ReceiptPage';
 import ReceivePage from './pages/ReceivePage';
-import SendPage from './pages/SendPage';
+import PageContainer from './pages/PageContainer';
 
 
 export default class ClassicUI extends BurnerUICore {
   getPages(): Page[] {
     return [
-      { path: '/', component: HomePage },
-      { path: '/activity', component: ActivityPage },
-      { path: '/pk', component: PKPage },
-      { path: '/receive', component: ReceivePage },
-      { path: '/send', component: SendPage },
+      { path: '/', component: PageContainer },
+      { path: '/activity', component: PageContainer },
+      { path: '/pk', component: PageContainer },
+      { path: '/receive', component: PageContainer },
+      { path: '/send', component: PageContainer },
       { path: '/confirm', component: ConfirmPage },
       { path: '/receipt/:asset/:txHash', component: ReceiptPage },
       { path: '/advanced', component: AdvancedPage },
@@ -45,7 +45,6 @@ export default class ClassicUI extends BurnerUICore {
       <Template theme={this.props.theme}>
         <Scanner />
         <Loading />
-        <Header title={this.props.title} />
         {this.router()}
       </Template>
     );
