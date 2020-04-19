@@ -9,8 +9,8 @@ import MyPlugin from 'my-plugin';
 
 const core = new BurnerCore({
   signers: [
-    new InjectedSigner(),
     new LocalSigner({ privateKey: process.env.REACT_APP_PK, saveKey: false }),
+    new InjectedSigner(),
   ],
   gateways: [
     new HTTPGateway('http://localhost:8545', '5777'),
