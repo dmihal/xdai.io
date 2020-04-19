@@ -76,6 +76,9 @@ const Wrapper = styled.div`
 
   .react-swipeable-view-container > div {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 

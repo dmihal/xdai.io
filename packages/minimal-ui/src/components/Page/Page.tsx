@@ -9,9 +9,9 @@ const PageContainer = styled.main<{ fullscreen?: boolean }>`
   padding: var(--page-margin);
   display: flex;
   flex-direction: column;
-  flex: 1;
   position: relative;
   background: #fafafa;
+  border-radius: 8px;
 
   ${({ fullscreen }) => fullscreen ? `
     position: absolute;

@@ -8,10 +8,6 @@ import HistoryList from '../../components/HistoryList';
 import AppButton from './AppButton';
 import HomeTabs from './HomeTabs';
 
-const PageContainer = styled(Page)`
-  margin-bottom: 100px;
-`;
-
 const ViewAllButton = styled(Link)`
   background: #f2f2f2;
   border-radius: 30px;
@@ -48,7 +44,7 @@ const { PluginElements, PluginButtons } = DataProviders;
 
 const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData, t }) => {
   return (
-    <PageContainer>
+    <Page>
       <PluginElements position='home-top' />
 
       <HomeTabs pluginData={pluginData} />
@@ -66,7 +62,7 @@ const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData
       <PluginButtons position="apps" component={AppButton}>
         <SubHeading line>{t('Apps')}</SubHeading>
       </PluginButtons>
-    </PageContainer>
+    </Page>
   );
 };
 

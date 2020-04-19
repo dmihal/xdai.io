@@ -9,6 +9,6 @@ declare module 'react-swipeable-routes' {
     onChangeIndex: any;
   }
 
-  const SwipableRoute: React.ComponentType<SwipableRouteProps>;
+  const SwipableRoute: React.ComponentType<any>;
   export default SwipableRoute;
 }
