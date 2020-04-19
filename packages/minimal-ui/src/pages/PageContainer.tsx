@@ -1,8 +1,9 @@
-import React, { useEffect, Fragment } from 'react';
-import ReactFullpage from '@fullpage/react-fullpage';
+import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { useBurner } from '@burner-wallet/ui-core';
 import styled from 'styled-components';
+import SwipeableRoutes from 'react-swipeable-routes';
+import keycode from 'keycode';
 
 import SendPage from './SendPage';
 import AdvancedPage from './AdvancedPage';
@@ -13,6 +14,7 @@ import { SCAN_QR_DATAURI } from '../lib';
 interface Page {
   route: string;
   component: any;
+  exact?: boolean;
 }
 
 const pages: Page[] = [
@@ -22,6 +24,7 @@ const pages: Page[] = [
   },
   {
     route: '/',
+    exact: true,
     component: HomePage,
   },
   {
@@ -60,39 +63,84 @@ const ScanButton = styled.button`
   background-position: center;
 `;
 
+const Wrapper = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  & > div, .react-swipeable-view-container {
+    height: 100%;
+  }
+
+  .react-swipeable-view-container > div {
+    height: 100%;
+  }
+`;
+
 const PageContainer = ({ history }: any) => {
+  const rerender = useState(null)[1];
   const { actions } = useBurner();
+  const [pageIndex, setPageIndex] = useState(0);
+  const scrolling = useRef(false);
+
+  const handleWheel = (e: any) => {
+    if (scrolling.current) {
+      return;
+    }
+
+    const newIndex = e.deltaY < 0 ? pageIndex - 1 : pageIndex + 1;
+    const boundedNewIndex = Math.min(Math.max(newIndex, 0), pages.length - 1);
+
+    if (boundedNewIndex !== pageIndex) {
+      scrolling.current = true;
+      setPageIndex(boundedNewIndex);
+    }
+  };
+
+
+  useEffect(() => {
+    const handleKeyDown = (e: any) => {
+      console.log(e);
+      switch (keycode(e)) {
+        case 'page down':
+        case 'down':
+          setPageIndex(pageIndex + 1);
+          break;
+
+        case 'page up':
+        case 'up':
+          setPageIndex(pageIndex - 1);
+          break;
+      }
+    };
+    window.document.addEventListener('keydown', handleKeyDown);
+    return () => window.document.removeEventListener('keydown', handleKeyDown);
+  }, [pageIndex]);
 
   return (
     <Fragment>
       <ScanButton onClick={actions.openDefaultQRScanner} />
-      <ReactFullpage
-        scrollingSpeed={1000}
-        dragAndMove={true}
-        // afterLoad={(start: any, destination: any) => history.push(pages[destination.index].route)}
 
-        render={({ state, fullpageApi }: { state: any, fullpageApi: any }) => {
-          return (
-            <Route
-              render={({ location }) => {
-                // if (pageIndexByRoute[location.pa] !==) {
-                //   fullpageApi.moveTo()
-                // }
-
-                return (
-                  <ReactFullpage.Wrapper>
-                    {pages.map((page: Page) => (
-                      <div className="section" key={page.route}>
-                        <page.component history={history} location={location} />
-                      </div>
-                    ))}
-                  </ReactFullpage.Wrapper>
-                );
-              }}
-            />
-          );
-        }}
-      />
+      <Wrapper>
+        <SwipeableRoutes
+          axis="y"
+          onWheel={handleWheel}
+          index={pageIndex}
+          onChangeIndex={(index: number) => {
+            setPageIndex(index);
+          }}
+          onTransitionEnd={() => {
+            scrolling.current = false;
+          }}
+          springConfig={{ duration: '1s', easeFunction: 'cubic-bezier(0.15, 0.3, 0.25, 1)', delay: '0s' }}
+        >
+          {pages.map((page: Page) => (
+            <Route key={page.route} path={page.route} component={page.component} exact={page.exact} />
+          ))}
+        </SwipeableRoutes>
+      </Wrapper>
     </Fragment>
   )
 }

@@ -21,14 +21,12 @@ import PageContainer from './pages/PageContainer';
 export default class ClassicUI extends BurnerUICore {
   getPages(): Page[] {
     return [
-      { path: '/', component: PageContainer },
-      { path: '/activity', component: PageContainer },
-      { path: '/pk', component: PageContainer },
-      { path: '/receive', component: PageContainer },
-      { path: '/send', component: PageContainer },
+      // @ts-ignore
+      { path: ['/', '/receive', '/send', '/settings'], component: PageContainer },
+      { path: '/activity', component: ActivityPage },
+      { path: '/pk', component: PKPage },
       { path: '/confirm', component: ConfirmPage },
       { path: '/receipt/:asset/:txHash', component: ReceiptPage },
-      { path: '/advanced', component: AdvancedPage },
     ];
   }
 
