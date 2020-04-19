@@ -71,8 +71,6 @@ const ReceivePage: React.FC<BurnerContext> = ({ defaultAccount, t }) => {
           )}
         </Clipboard>
       </AddressInputContainer>
-
-      <Button disabled>Create Request</Button>
     </Page>
   );
 };

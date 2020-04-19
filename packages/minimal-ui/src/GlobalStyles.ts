@@ -46,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: #ededed;
+    background: ${({ theme }) => theme.background};
   }
 
   html, body {

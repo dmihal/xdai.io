@@ -6,18 +6,10 @@ import styled from 'styled-components';
 import Page from '../../components/Page';
 import HistoryList from '../../components/HistoryList';
 import AppButton from './AppButton';
-import BottomActions from './BottomActions';
 import HomeTabs from './HomeTabs';
 
 const PageContainer = styled(Page)`
   margin-bottom: 100px;
-`;
-
-const BottomActionsContainer = styled.div`
-  position: fixed;
-  bottom: 32px;
-  left: 0;
-  right: 0;
 `;
 
 const ViewAllButton = styled(Link)`
@@ -74,12 +66,6 @@ const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData
       <PluginButtons position="apps" component={AppButton}>
         <SubHeading line>{t('Apps')}</SubHeading>
       </PluginButtons>
-
-      <AppButton title={t('Settings')} to="/advanced" />
-
-      <BottomActionsContainer>
-        <BottomActions actions={actions} />
-      </BottomActionsContainer>
     </PageContainer>
   );
 };

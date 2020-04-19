@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 
 const defaultTheme = {
-  background: '#975422',
+  background: '#393939',
   font:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   titleFont: null,
